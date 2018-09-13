@@ -2,15 +2,16 @@ import math
 import matplotlib.pyplot as plt
 
 def output(teta, x):
-	h.append(teta[1]*x+teta[0])
+	return teta[1]*x+teta[0]
 
 def gradient(teta,x,m,entrada,profit,alpha):
-	for i in range(0,len(teta)):
+	tetanew = teta
+	for j in range(0,len(teta)):
 		summ = 0
 		for k in range(0,m):
-			summ = (output(teta,entrada[k])-profit[k])*x[i]
-		teta[i] -= (alpha/m)*summ
-	return teta
+			summ = (output(teta,entrada[k])-profit[k])*x[k][j]
+		tetanew[j] -= (alpha/m)*summ
+	return tetanew
 
 #leitura dos dados
 file = open("ex1data1.txt")
@@ -23,7 +24,7 @@ for line in file:
 	profit.append(float(line.split(",")[1].replace("\n","")))
 print(entrada)
 teta = [1,2]
-m = len(size_pop)
+m = len(entrada)
 iterations = 1500
 alpha = 0.01
 for i in range(0,iterations):
@@ -31,5 +32,6 @@ for i in range(0,iterations):
 out = []
 for i in range(0,m):
 	out.append(output(teta,entrada[i]))
-plt.plot(size_pop,profit,"*")
-plt.plot(size_pop,)
+plt.plot(entrada,profit,"*")
+plt.plot(entrada,out)
+plt.show()
